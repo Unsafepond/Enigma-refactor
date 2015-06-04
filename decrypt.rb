@@ -1,13 +1,7 @@
 require 'pry'
-
-class Key
-	def get_key
-		key_input = gets.chomp
-	end
-end
 #takes in a message
-#encryptys message
-#outputs encrypted message
+#decrypts message
+#outputs decrypted message
 class Enigma
 	attr_reader :message, :date_offset, :key
 
@@ -52,7 +46,7 @@ class Enigma
 
 
 
-	def encrypt
+	def decrypt
 		char_map = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9",  " ", ",", "."]
 
 		a_rotated = char_map.rotate(-a_key)
@@ -70,7 +64,7 @@ class Enigma
 
 
 		message_split_into_4 = message.scan(/..../)
-			encrypted_message =	message_split_into_4.map do |letters|
+			decrypted_message =	message_split_into_4.map do |letters|
 			count = 0
 	
 			letters.chars.map do |letter|
@@ -88,20 +82,20 @@ class Enigma
 			end
 					 	 
 		end
-		encrypted_message = encrypted_message.join
+		decrypted_message = decrypted_message.join
 		message_write = File.open(ARGV[1], "w")
-		message_write.write(encrypted_message)
+		message_write.write(decrypted_message)
 		message_write.close
 
 	end
 
 
 	def keygen
-	 	key = "09821"
+	 	key = "04129"
 	end
 
 end
 
 enigma = Enigma.new
-encrypted_message = enigma.encrypt
+decrypted_message = enigma.decrypt
 puts "Created 'decrypted.txt' with the key #{enigma.key} and date #{Time.new.strftime("%d%m%y")}"
